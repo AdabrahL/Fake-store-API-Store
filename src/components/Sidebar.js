@@ -19,10 +19,11 @@ const Sidebar = () => {
     <div
       className={`${
         isOpen ? 'right-0' : '-right-full'
-      } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20 px-4 lg:px-[35px]`}
+      } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] 
+      transition-all duration-300 z-20 px-4 lg:px-[35px] flex flex-col`}
     >
       {/* Header */}
-      <div style={{marginBottom:'-30px'}} className="flex items-center justify-between py-6 border-b">
+      <div className="flex items-center justify-between py-6 border-b">
         <h2 className="uppercase text-sm font-semibold">
           Shopping Bag ({totalItems})
         </h2>
@@ -31,30 +32,40 @@ const Sidebar = () => {
         </button>
       </div>
 
-      {/* Cart Items */}
-      <div className="flex flex-col gap-y-2 h-[520px] lg:h-[640px] overflow-y-auto border-b">
+      {/* Cart Items (Scrollable) */}
+      <div className="flex-1 overflow-y-auto border-b mt-2 mb-4">
         {cart.map(item => (
           <CartItem key={item.id} item={item} />
         ))}
       </div>
 
-      {/* Footer */}
-      <div className="flex flex-col gap-y-3 py-4 mt-4">
-        <div className="flex justify-between items-center">
+      {/* Footer (Fixed) */}
+      <div className="sticky bottom-0 bg-white z-10 pt-4 pb-6">
+        <div className="flex justify-between items-center mb-4">
           <span className="uppercase font-semibold">Total:</span>
           <span className="font-semibold text-primary">${totalPrice}</span>
+        <button
+            onClick={clearCart}
+            className="w-12 h-12 bg-red-500 text-white flex justify-center items-center text-xl hover:bg-red-600 transition"
+          >
+            <FiTrash2 />
+          </button>
+       
         </div>
 
-        <button
-          onClick={clearCart}
-          className="w-12 h-12 bg-red-500 text-white flex justify-center items-center text-xl hover:bg-red-600 transition"
-        >
-          <FiTrash2 />
-        </button>
+        <div className="flex justify-between items-center mb-3">
+         
+          <Link to="/" 
+          className="bg-gray-200 flex p-4 justify-center 
+          items-center text-primary w-full font-medium">
+            View Cart
+          </Link>
+        </div>
 
         <Link
           to="/checkout"
-          className="bg-primary flex p-4 justify-center items-center text-white w-full font-medium"
+         className="bg-primary flex p-4 justify-center 
+          items-center text-white w-full font-medium"
         >
           Checkout
         </Link>
